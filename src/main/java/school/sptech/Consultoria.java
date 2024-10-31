@@ -1,5 +1,7 @@
 package school.sptech;
 
+import school.sptech.especialistas.DesenvolvedorWeb;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +22,77 @@ public class Consultoria {
   }
 
   public Boolean contratar(Desenvolvedor desenvolvedor) {
-    
+    if (vagas != null && vagas >= 1) {
+      desenvolvedores.add(desenvolvedor);
+    }
+    return false;
+  }
+
+  public Boolean contratarFullstack(DesenvolvedorWeb desenvolvedor) {
+    if (desenvolvedor.isFullstack()) {
+      desenvolvedores.add(desenvolvedor);
+    }
+    return false;
+  }
+
+  public Double getTotalSalarios() {
+
+    Double total = 0.0;
+    for (Desenvolvedor desenvolvedor: desenvolvedores) {
+      total += desenvolvedor.calcularSalario();
+    }
+    return total;
+  }
+
+  public Integer qtdDesenvolvedoresMobile() {
+    return desenvolvedores.size();
   }
 
 
+
+  public List<Desenvolvedor> buscarPorSalarioMaiorIgualQue(Double salario) {
+
+    List<Desenvolvedor> listaResultado = new ArrayList<>();
+
+    for (Desenvolvedor desenvolvedor : desenvolvedores) {
+      if (desenvolvedor.calcularSalario() >= salario) {
+        listaResultado.add(desenvolvedor);
+      }
+    }
+    return listaResultado;
+  }
+
+  public Desenvolvedor buscarMenorSalario() {
+
+    if (desenvolvedores.isEmpty()) {
+      return null;
+    }
+
+    Desenvolvedor devMenorSalario = desenvolvedores.get(0);
+    for (Desenvolvedor desenvolvedor : desenvolvedores) {
+      if (desenvolvedor.calcularSalario() < devMenorSalario.calcularSalario()) {
+        devMenorSalario = desenvolvedor;
+      }
+    }
+    return devMenorSalario;
+  }
+
+
+  public String getNome() {
+    return nome;
+  }
+
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
+
+  public Integer getVagas() {
+    return vagas;
+  }
+
+  public void setVagas(Integer vagas) {
+    this.vagas = vagas;
+  }
 
 
 }

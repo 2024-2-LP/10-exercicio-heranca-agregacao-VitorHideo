@@ -1,5 +1,6 @@
 package school.sptech;
 
+import school.sptech.especialistas.DesenvolvedorMobile;
 import school.sptech.especialistas.DesenvolvedorWeb;
 
 import java.util.ArrayList;
@@ -45,11 +46,15 @@ public class Consultoria {
   }
 
   public Integer qtdDesenvolvedoresMobile() {
-    return desenvolvedores.size();
+    Integer cont = 0;
+    for (Desenvolvedor desenvolvedor : desenvolvedores) {
+      if (desenvolvedor instanceof DesenvolvedorMobile) {
+        cont++;
+      }
+    }
+    return cont;
   }
-
-
-
+  
   public List<Desenvolvedor> buscarPorSalarioMaiorIgualQue(Double salario) {
 
     List<Desenvolvedor> listaResultado = new ArrayList<>();
@@ -77,6 +82,25 @@ public class Consultoria {
     return devMenorSalario;
   }
 
+  public List<Desenvolvedor> buscarPorTecnologia(String tecnologia) {
+    
+    List<Desenvolvedor> listaResultado = new ArrayList<>();
+
+    for (Desenvolvedor desenvolvedor : desenvolvedores) {
+      if (desenvolvedor instanceof DesenvolvedorWeb) {
+        listaResultado.add(desenvolvedor);
+      }
+      if (desenvolvedor instanceof  DesenvolvedorMobile) {
+        listaResultado.add(desenvolvedor);
+      }
+    }
+    return listaResultado;
+  }
+
+  public Double getTotalSalariosPorTecnologia(String tecnologia) {
+    Desenvolvedor desenvolvedorSalario = (Desenvolvedor) buscarPorTecnologia(tecnologia);
+    return desenvolvedorSalario.calcularSalario();
+  }
 
   public String getNome() {
     return nome;
